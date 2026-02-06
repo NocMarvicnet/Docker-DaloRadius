@@ -15,7 +15,11 @@ services:
       - 3306:3306
     volumes:
       - "./data/mysql:/var/lib/mysql"
-
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "100m"
+        max-file: "3"
 
   radius:
     container_name: radius
@@ -43,6 +47,11 @@ services:
       - ./config/clients.conf:/etc/freeradius/clients.conf
     # If you want to disable debug output, remove the command parameter
     command: -X
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "100m"
+        max-file: "3"
 
   radius-web:
     build: .
@@ -69,3 +78,8 @@ services:
       - TZ=America/Guayaquil
     volumes:
       - ./data/daloradius:/data
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "100m"
+        max-file: "3"
